@@ -21,9 +21,10 @@ export const removeContact = async (contactId) => {
   if (index === -1) {
     return null;
   }
-  const [result] = contacts.splice(index, 1);
+  const delContact = contacts[index];
+  contacts.splice(index, 1);
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-  return result;
+  return delContact;
 };
 
 export const addContact = async ({ name, email, phone }) => {
