@@ -11,8 +11,6 @@ const getAllContacts = async (req, res) => {
 const getOneContact = async (req, res) => {
   const { id } = req.params;
   const result = await Contact.findById(id);
-  console.log(result);
-  console.log(req.params);
   if (!result) {
     throw HttpError(404, `Contact not found`);
   }
@@ -22,13 +20,14 @@ const getOneContact = async (req, res) => {
 
 const deleteContact = async (req, res) => {
   const { id } = req.params;
-  const result = await Contact.findByIdAndDelete(id);
-  if (!result) {
+  const removeContact = await Contact.findById(id);
+  if (!removeContact) {
     throw HttpError(404, `Contact not found`);
   }
 
+  const result = await Contact.findByIdAndDelete(id);
   res.json({
-    message: "Delete success",
+    message: removeContact,
   });
 };
 
