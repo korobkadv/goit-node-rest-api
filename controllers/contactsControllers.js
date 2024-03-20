@@ -20,15 +20,13 @@ const getOneContact = async (req, res) => {
 
 const deleteContact = async (req, res) => {
   const { id } = req.params;
-  const removeContact = await Contact.findById(id);
-  if (!removeContact) {
+  const searchForDelete = await Contact.findById(id);
+  if (!searchForDelete) {
     throw HttpError(404, `Contact not found`);
   }
 
   const result = await Contact.findByIdAndDelete(id);
-  res.json({
-    message: removeContact,
-  });
+  res.json(searchForDelete);
 };
 
 const createContact = async (req, res) => {
